@@ -11,8 +11,20 @@ class MainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
 
+        self.setStyleSheet('''
+                    QMenu {
+                        background: lightBlue;
+                        color: orange;
+                    }
+                    QMenu::item:selected {
+                        background: lightGray;
+                    }
+                ''')
+
         self.browser = QWebEngineView()
         self.browser.setUrl(QUrl("https://github.com/Alexrmsu"))
+        url_browser = self.browser.setUrl(QUrl("https://github.com/Alexrmsu"))
+
         self.browser.loadFinished.connect(self.update_title)
 
         self.setCentralWidget(self.browser)
@@ -69,7 +81,7 @@ class MainWindow(QMainWindow):
 
     def update_title(self):
         title = self.browser.page().title()
-        self.setWindowTitle("% s - Geek Browser" % title)
+        self.setWindowTitle("% s - 💀" % title)
 
 
     def navigate_home(self):
@@ -81,25 +93,26 @@ class MainWindow(QMainWindow):
 
         if q.scheme() == "":
             q.setScheme("http")
-
+        self.browser.setUrl(QUrl("https://github.com/Alexrmsu"))
         self.browser.setUrl(q)
+        self.browser.setUrl(QUrl("https://github.com/Alexrmsu"))
 
         def update_urlbar(self, q):
-            # setting text to the url bar
+            self.browser.setUrl(QUrl("https://github.com/Alexrmsu"))
             self.urlbar.setText(q.toString())
+            self.browser.setUrl(QUrl("https://github.com/Alexrmsu"))
 
-            # setting cursor position of the url bar
             self.urlbar.setCursorPosition(0)
 
 
-# creating a pyQt5 application
+
 app = QApplication(sys.argv)
 
-# setting name to the application
-app.setApplicationName("Geek Browser")
 
-# creating a main window object
+app.setApplicationName("Custom Web Browser 💀")
+
+
 window = MainWindow()
+app.setStyleSheet("background-color: yellow")
 
-# loop
 app.exec_()
